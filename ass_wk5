@@ -1,0 +1,80 @@
+# ---------------------------
+# Assignment 1: Smartphone Class with Inheritance
+# ---------------------------
+
+class Device:
+    def __init__(self, brand, model):
+        self.brand = brand
+        self.model = model
+
+    def device_info(self):
+        return f"{self.brand} {self.model}"
+
+
+class Smartphone(Device):
+    def __init__(self, brand, model, storage, battery):
+        super().__init__(brand, model)  # Call parent constructor
+        self.storage = storage
+        self.battery = battery
+
+    def charge(self, amount):
+        self.battery += amount
+        if self.battery > 100:
+            self.battery = 100
+        print(f"🔋 {self.device_info()} charged to {self.battery}%")
+
+    def use_storage(self, amount):
+        if amount <= self.storage:
+            self.storage -= amount
+            print(f"📂 {self.device_info()} used {amount}GB, {self.storage}GB left")
+        else:
+            print(f"⚠️ {self.device_info()} does not have enough storage!")
+
+    def __str__(self):
+        return f"{self.device_info()} | Storage: {self.storage}GB | Battery: {self.battery}%"
+
+
+# ---------------------------
+# Activity 2: Polymorphism with Vehicles
+# ---------------------------
+
+class Vehicle:
+    def move(self):
+        pass  # Abstract method
+
+
+class Car(Vehicle):
+    def move(self):
+        print("🚗 The car is driving on the road.")
+
+
+class Plane(Vehicle):
+    def move(self):
+        print("✈️ The plane is flying in the sky.")
+
+
+class Boat(Vehicle):
+    def move(self):
+        print("🚤 The boat is sailing on water.")
+
+
+# ---------------------------
+# MAIN PROGRAM (Testing both)
+# ---------------------------
+
+if __name__ == "__main__":
+    print("=== Assignment 1: Smartphones ===")
+    phone1 = Smartphone("Apple", "iPhone 15", 256, 80)
+    phone2 = Smartphone("Samsung", "Galaxy S24", 512, 50)
+
+    print(phone1)
+    phone1.charge(15)
+    phone1.use_storage(50)
+
+    print(phone2)
+    phone2.use_storage(600)  # Not enough storage
+
+    print("\n=== Activity 2: Polymorphism with Vehicles ===")
+    vehicles = [Car(), Plane(), Boat()]
+    for v in vehicles:
+        v.move()
